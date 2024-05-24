@@ -2,10 +2,22 @@ import sys
 import os
 import pandas as pd
 import sqlite3
-from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QTextEdit, QTextBrowser, QFileDialog, QTabWidget, QPushButton, QFrame
+from PyQt6.QtWidgets import (
+    QApplication,
+    QMainWindow,
+    QVBoxLayout,
+    QWidget,
+    QTextEdit,
+    QTextBrowser,
+    QFileDialog,
+    QTabWidget,
+    QPushButton,
+    QFrame,
+)
 from PyQt6.QtGui import QAction, QKeySequence
 from PyQt6.QtCore import Qt
 from tabulate import tabulate
+
 
 class SQLTextEdit(QTextEdit):
     """Custom QTextEdit widget for SQL input with special handling for Enter and Shift+Enter keys.
@@ -25,19 +37,24 @@ class SQLTextEdit(QTextEdit):
         Args:
             event (QKeyEvent): The key press event.
         """
-        if event.key() == Qt.Key.Key_Return and not (event.modifiers() & Qt.KeyboardModifier.ShiftModifier):
+        if event.key() == Qt.Key.Key_Return and not (
+            event.modifiers() & Qt.KeyboardModifier.ShiftModifier
+        ):
             self.dashboard.execute_query()
-        elif event.key() == Qt.Key.Key_Return and (event.modifiers() & Qt.KeyboardModifier.ShiftModifier):
-            self.insertPlainText('\n')
+        elif event.key() == Qt.Key.Key_Return and (
+            event.modifiers() & Qt.KeyboardModifier.ShiftModifier
+        ):
+            self.insertPlainText("\n")
         else:
             super().keyPressEvent(event)
+
 
 class Dashboard(QMainWindow):
     """Main application window for the data dashboard."""
 
     def __init__(self):
         super().__init__()
-        self.setWindowTitle('Datadash')
+        self.setWindowTitle("Datadash")
 
         # Create the "New Query" button
         new_query_button = QPushButton("New Query")
@@ -50,7 +67,9 @@ class Dashboard(QMainWindow):
         # Create a tab widget
         self.tab_widget = QTabWidget()
         self.tab_widget.setTabsClosable(True)  # Enable closing tabs
-        self.tab_widget.tabCloseRequested.connect(self.close_tab)  # Connect to close_tab method
+        self.tab_widget.tabCloseRequested.connect(
+            self.close_tab
+        )  # Connect to close_tab method
 
         # Layout for the main window
         main_layout = QVBoxLayout()
@@ -138,9 +157,13 @@ class Dashboard(QMainWindow):
 
         # Layout for the SQL query tab
         query_layout = QVBoxLayout()
-        query_layout.addWidget(query_entry, 1)  # Add query_entry to layout, stretch factor 1
+        query_layout.addWidget(
+            query_entry, 1
+        )  # Add query_entry to layout, stretch factor 1
         query_layout.addWidget(separator_line)
-        query_layout.addWidget(query_output_view, 2)  # Add query_output_view to layout, stretch factor 2
+        query_layout.addWidget(
+            query_output_view, 2
+        )  # Add query_output_view to layout, stretch factor 2
 
         query_widget = QWidget()
         query_widget.setLayout(query_layout)
@@ -179,7 +202,9 @@ class Dashboard(QMainWindow):
 
     def open_file_dialog(self):
         """Opens a file dialog to select a CSV file and loads it into a new tab."""
-        file_path, _ = QFileDialog.getOpenFileName(self, "Open CSV File", "", "CSV Files (*.csv)")
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, "Open CSV File", "", "CSV Files (*.csv)"
+        )
         if file_path:
             self.load_csv_tab(file_path)
 
@@ -189,7 +214,9 @@ class Dashboard(QMainWindow):
         Args:
             file_path (str): The path to the CSV file.
         """
-        file_name = os.path.basename(file_path)  # Extract the file name from the file path
+        file_name = os.path.basename(
+            file_path
+        )  # Extract the file name from the file path
         new_query_tab = self.create_query_tab(file_name)
         self.tab_widget.addTab(new_query_tab, file_name)
 
@@ -198,8 +225,8 @@ class Dashboard(QMainWindow):
             data = pd.read_csv(file_path)
 
             # Create an in-memory SQLite database and load the data into it
-            conn = sqlite3.connect(':memory:')
-            data.to_sql('data', conn, index=False, if_exists='replace')
+            conn = sqlite3.connect(":memory:")
+            data.to_sql("data", conn, index=False, if_exists="replace")
 
             # Store the connection for this tab using tab index as the key
             tab_index = self.tab_widget.indexOf(new_query_tab)
@@ -222,7 +249,8 @@ class Dashboard(QMainWindow):
         if conn:
             conn.close()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     dashboard = Dashboard()
     dashboard.show()
