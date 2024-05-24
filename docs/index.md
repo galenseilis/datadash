@@ -1,5 +1,7 @@
 ## Introduction
 
+![](assets/45ac32d5-5c4e-4574-a458-0337197ee27d.jpg)
+
 Datadash is a light Python package for quickly inspecting data. The core idea is to make it easy to point to different data sources and pull them into an environment where they can easily be queried.
 
 ## Installation
