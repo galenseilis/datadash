@@ -1,22 +1,15 @@
-import sys
+"""Datadash main module."""
+
 import os
-import pandas as pd
 import sqlite3
-from PyQt6.QtWidgets import (
-    QApplication,
-    QMainWindow,
-    QVBoxLayout,
-    QWidget,
-    QTextEdit,
-    QTextBrowser,
-    QFileDialog,
-    QTabWidget,
-    QPushButton,
-    QFrame,
-)
-from PyQt6.QtGui import QAction, QKeySequence
+import sys
+
+import pandas as pd
 from PyQt6.QtCore import Qt
-from tabulate import tabulate
+from PyQt6.QtGui import QAction, QKeySequence
+from PyQt6.QtWidgets import (QApplication, QFileDialog, QFrame, QMainWindow,
+                             QPushButton, QTabWidget, QTextBrowser, QTextEdit,
+                             QVBoxLayout, QWidget)
 
 
 class SQLTextEdit(QTextEdit):
@@ -197,8 +190,8 @@ class Dashboard(QMainWindow):
 
             # Display the HTML table in the QTextBrowser widget
             query_output_view.setHtml(html_table)
-        except Exception as e:
-            query_output_view.setPlainText(str(e))
+        except Exception as exceptional_case:
+            query_output_view.setPlainText(str(exception_case))
 
     def open_file_dialog(self):
         """Opens a file dialog to select a CSV file and loads it into a new tab."""
@@ -231,8 +224,8 @@ class Dashboard(QMainWindow):
             # Store the connection for this tab using tab index as the key
             tab_index = self.tab_widget.indexOf(new_query_tab)
             self.connections[tab_index] = conn
-        except Exception as e:
-            new_query_tab.query_output_view.setPlainText(str(e))
+        except Exception as exception_case:
+            new_query_tab.query_output_view.setPlainText(str(exceptional_case))
 
     def close_tab(self, index):
         """Closes the tab at the specified index.
