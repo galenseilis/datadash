@@ -46,6 +46,7 @@ python-dateutil==2.9.0.post0
 pytz==2024.1
 PyYAML==6.0.1
 pyyaml_env_tag==0.1
+PyQt6
 readme_renderer==43.0
 regex==2024.5.15
 requests==2.32.2
