@@ -38,6 +38,8 @@ extra:
 
 nav:
   - Overview: index.md
+  - Tutorial: tutorial.md
+  - Guides: guides.md
   - Hotkeys: hotkeys.md
 
 plugins:
