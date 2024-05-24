@@ -6,7 +6,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://galenseilis.github.io/Datadash/guides/</loc>
+         <lastmod>2024-05-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://galenseilis.github.io/Datadash/hotkeys/</loc>
+         <lastmod>2024-05-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://galenseilis.github.io/Datadash/tutorial/</loc>
          <lastmod>2024-05-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
